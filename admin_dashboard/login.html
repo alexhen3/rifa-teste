@@ -24,11 +24,24 @@
         <input type="password" id="senha" name="senha" placeholder="********" required />
       </div>
       <button type="submit" class="login-btn">Entrar</button>
+      <p id="login-error" style="color:#ff4d4f; display:none; margin-top:10px; text-align:center;">Senha incorreta.</p>
     </form>
     <div class="footer">
       &copy; 2025 Savawards. Todos os direitos reservados.
     </div>
   </div>
+
+  <script src="../js/admin-auth.js"></script>
+  <script>
+    document.querySelector('.login-container form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var senha = document.getElementById('senha').value;
+      var ok = AdminAuth.attemptLogin(senha, 'dashboard-admin.html');
+      if (!ok) {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    });
+  </script>
 </body>
 
 </html>
