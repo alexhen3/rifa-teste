@@ -32,16 +32,17 @@
   </div>
 
   <script src="../js/admin-auth.js"></script>
-  <script>
-    document.querySelector('.login-container form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var senha = document.getElementById('senha').value;
-      var ok = AdminAuth.attemptLogin(senha, 'dashboard-admin.html');
-      if (!ok) {
-        document.getElementById('login-error').style.display = 'block';
-      }
-    });
-  </script>
+<script>
+  document.querySelector('.login-container form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('email').value;
+    var senha = document.getElementById('senha').value;
+    var ok = AdminAuth.attemptLogin(email, senha, 'dashboard-admin.html');
+    if (!ok) {
+      document.getElementById('login-error').style.display = 'block';
+    }
+  });
+</script>
 </body>
   
 </html>
