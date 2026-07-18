@@ -4,8 +4,9 @@
 // Pra proteção real, no futuro isso precisa virar um login com backend.
 
 (function () {
-  // Troque essa senha para a que você quiser usar:
-  var ADMIN_PASSWORD = "troque-esta-senha";
+  // Troque para o e-mail e a senha que você quiser usar:
+  var ADMIN_EMAIL = "alexhenrique3040@gmail.com";
+  var ADMIN_PASSWORD = "99183010mS";
 
   function isLoggedIn() {
     return sessionStorage.getItem("admin_logged_in") === "true";
@@ -19,8 +20,8 @@
   }
 
   // Chame no submit do formulário de login
-  function attemptLogin(password, redirectPath) {
-    if (password === ADMIN_PASSWORD) {
+  function attemptLogin(email, password, redirectPath) {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       sessionStorage.setItem("admin_logged_in", "true");
       window.location.href = redirectPath;
       return true;
