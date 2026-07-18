@@ -12,93 +12,184 @@
 </head>
 
 <body>
-    
-    <!-- Header -->
     <header>
-        <div class="logo">
-            <a href="#">
-                <img src="./images/logo.svg" alt="Logo" draggable="false">
-            </a>
+        <div class="top-bar">
+            <div class="logo">
+                <a href="#">
+                    <img src="./images/logo.svg" alt="Logo" draggable="false">
+                </a>
+            </div>
+            <nav class="header-links">
+                <a href="#rifas">Rifas</a>
+                <a href="#como-funciona">Como funciona</a>
+                <a href="#contato">Contato</a>
+            </nav>
         </div>
     </header>
-    <!-- Header -->
 
-    <!-- Content -->
     <main>
         <div class="main-container">
-            <div class="main-raffle">
-                <div class="main-image">
-                    <img src="./images/banners/money.jpg" alt="Rifa em Destaque">
+            <section class="page-intro">
+                <div class="hero-copy">
+                    <p class="eyebrow">Rifas digitais</p>
+                    <h1>Prêmios reais, experiência premium e chances que valem a pena.</h1>
+                    <p>Descubra oportunidades exclusivas, participe com segurança e acompanhe cada campanha em um ambiente moderno e sofisticado.</p>
+                    <div class="hero-actions">
+                        <a class="primary-btn" href="./raffle.html">Ver rifa em destaque</a>
+                        <a class="secondary-btn" href="#rifas">Explorar outras rifas</a>
+                    </div>
                 </div>
-                <div class="info">
-                    <a href="./raffle.html">
-                        <div class="main-description">
-                            <h4>R$ 10.000,00 no PIX (10 mil reais no PIX)</h4>
-                            <p>Sorteio Loteria Federal</p>
-                            <div class="available">Adquira já!</div>
-                        </div>
-                        <div class="go-to">
-                            <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
-                        </div>
-                    </a>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <strong>+120</strong>
+                        <span>participantes ativos</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong>PIX</strong>
+                        <span>pagamento rápido e seguro</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong>4.9/5</strong>
+                        <span>avaliação dos organizadores</span>
+                    </div>
                 </div>
-            </div>
-            <div class="other-raffles">
-                <div class="info sc">
-                    <a href="./raffle.html">
-                        <div class="group-info">
-                            <div class="raffle-image">
-                                <img src="./images/banners/money.jpg" alt="Rifa">
-                            </div>
+            </section>
+
+            <section id="rifas" class="featured-grid">
+                <div class="main-raffle">
+                    <div class="main-image">
+                        <img src="./images/banners/money.jpg" alt="Rifa em Destaque">
+                    </div>
+                    <div class="info">
+                        <a href="./raffle.html">
                             <div class="main-description">
-                                <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
-                                <p>Sorteio Loteria Federal</p>
-                                <div class="available">Adquira já!</div>
+                                <div class="chip-row">
+                                    <span class="chip chip-live">Mais procurada</span>
+                                    <span class="chip chip-dark">Loteria Federal</span>
+                                </div>
+                                <h4>R$ 10.000,00 no PIX (10 mil reais no PIX)</h4>
+                                <p>Uma oportunidade de alto valor com sorteio direto e reserva simples.</p>
+                                <div class="meta-row">
+                                    <span class="meta-pill">A partir de R$ 0,19</span>
+                                    <span class="meta-pill">Reservas abertas</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="go-to">
-                            <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
-                        </div>
-                    </a>
+                            <div class="go-to">
+                                <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div class="info sc">
-                    <a href="./raffle.html">
-                        <div class="group-info">
-                            <div class="raffle-image">
-                                <img src="./images/banners/money.jpg" alt="Rifa">
-                            </div>
-                            <div class="main-description">
-                                <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
-                                <p>Sorteio Loteria Federal</p>
-                                <div class="unavailable">Esgotou!</div>
-                            </div>
-                        </div>
-                        <div class="go-to">
-                            <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
-                        </div>
-                    </a>
+
+                <aside class="feature-panel">
+                    <div class="panel-card">
+                        <h3>Por que participar?</h3>
+                        <ul>
+                            <li>Pagamento via PIX seguro</li>
+                            <li>Reservas rápidas e fáceis</li>
+                            <li>Prêmios com alto impacto</li>
+                        </ul>
+                    </div>
+                    <div class="panel-card accent">
+                        <h3>Próximo sorteio</h3>
+                        <p>Todos os detalhes e regulamento em uma só página, com organização impecável.</p>
+                        <a href="./raffle.html">Acessar campanha</a>
+                    </div>
+                </aside>
+            </section>
+
+            <section id="como-funciona" class="steps-section">
+                <div class="section-heading">
+                    <p class="eyebrow">Como funciona</p>
+                    <h2>Uma experiência simples, porém sofisticada</h2>
                 </div>
-                <div class="info sc">
-                    <a href="./raffle.html">
-                        <div class="group-info">
-                            <div class="raffle-image">
-                                <img src="./images/banners/money.jpg" alt="Rifa">
-                            </div>
-                            <div class="main-description">
-                                <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
-                                <p>Sorteio Loteria Federal</p>
-                                <div class="unavailable">Esgotou!</div>
-                            </div>
-                        </div>
-                        <div class="go-to">
-                            <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
-                        </div>
-                    </a>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <span>01</span>
+                        <h3>Escolha a campanha</h3>
+                        <p>Veja os prêmios, valores e status de cada rifa antes de participar.</p>
+                    </div>
+                    <div class="step-card">
+                        <span>02</span>
+                        <h3>Defina a quantidade</h3>
+                        <p>Adicione bilhetes, confira o valor total e finalize com rapidez.</p>
+                    </div>
+                    <div class="step-card">
+                        <span>03</span>
+                        <h3>Confirme e acompanhe</h3>
+                        <p>Receba o suporte necessário e acompanhe o andamento da campanha.</p>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <section class="other-raffles">
+                <div class="section-heading">
+                    <p class="eyebrow">Outras oportunidades</p>
+                    <h2>Rifas com diferentes valores e status</h2>
+                </div>
+                <div class="raffle-list">
+                    <div class="info sc">
+                        <a href="./raffle.html">
+                            <div class="group-info">
+                                <div class="raffle-image">
+                                    <img src="./images/banners/money.jpg" alt="Rifa">
+                                </div>
+                                <div class="main-description">
+                                    <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
+                                    <p>Sorteio Loteria Federal</p>
+                                    <div class="available">Adquira já!</div>
+                                </div>
+                            </div>
+                            <div class="go-to">
+                                <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="info sc">
+                        <a href="./raffle.html">
+                            <div class="group-info">
+                                <div class="raffle-image">
+                                    <img src="./images/banners/money.jpg" alt="Rifa">
+                                </div>
+                                <div class="main-description">
+                                    <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
+                                    <p>Sorteio Loteria Federal</p>
+                                    <div class="unavailable">Esgotou!</div>
+                                </div>
+                            </div>
+                            <div class="go-to">
+                                <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="info sc">
+                        <a href="./raffle.html">
+                            <div class="group-info">
+                                <div class="raffle-image">
+                                    <img src="./images/banners/money.jpg" alt="Rifa">
+                                </div>
+                                <div class="main-description">
+                                    <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
+                                    <p>Sorteio Loteria Federal</p>
+                                    <div class="unavailable">Esgotou!</div>
+                                </div>
+                            </div>
+                            <div class="go-to">
+                                <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contato" class="cta-card">
+                <div>
+                    <p class="eyebrow">Pronto para participar?</p>
+                    <h2>Entre no universo das rifas e descubra oportunidades que combinam valor e tecnologia.</h2>
+                </div>
+                <a class="primary-btn" href="./raffle.html">Acessar a campanha</a>
+            </section>
         </div>
     </main>
-    <!-- Content -->
-
 </body>
 </html>
