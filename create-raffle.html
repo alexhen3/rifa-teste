@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 <script src="./js/admin-auth.js"></script>
 <script>AdminAuth.requireLogin("./admin_dashboard/login.html");</script>
+<script src="./js/store.js"></script>
 </head>
 
 <body>
@@ -266,6 +267,34 @@
 
         updatePreview();
 
+        // Salvar campanha
+        document.querySelector('.buttons .submit').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (!titleInput.value.trim() || !descriptionInput.value.trim() || !rafflePriceInput.value.trim() || !qtyTicketsInput.value.trim()) {
+                alert('Preencha título, descrição, valor do número e quantidade de bilhetes.');
+                return;
+            }
+
+            var priceValue = parseFloat(rafflePriceInput.value.replace("R$", "").replace(/\./g, "").replace(",", "."));
+            var qtyValue = parseInt(qtyTicketsInput.value.replace(/\D/g, ''), 10);
+            var previewImage = document.getElementById('preview-image');
+            var imageSrc = (productPhotoInput.files[0] && previewImage.src) ? previewImage.src : './images/banners/money.jpg';
+
+            Store.saveRaffle({
+                title: titleInput.value.trim(),
+                description: descriptionInput.value.trim(),
+                image: imageSrc,
+                ticketValue: priceValue,
+                totalTickets: qtyValue,
+                ranking: rankingCheckbox.checked,
+                support: document.getElementById('support').value.trim(),
+                telegram: document.getElementById('telegram').value.trim(),
+                instagram: document.getElementById('instagram').value.trim()
+            });
+
+            window.location.href = './index.html';
+        });
     </script>
 </body>
 </html>

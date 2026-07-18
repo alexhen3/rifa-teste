@@ -5,7 +5,7 @@
 
 (function () {
   // Troque para o e-mail e a senha que você quiser usar:
-  var ADMIN_EMAIL = "alexhenrique3040@gmail.com";
+  var ADMIN_EMAIL = "admin@savawards.com";
   var ADMIN_PASSWORD = "99183010mS";
 
   function isLoggedIn() {

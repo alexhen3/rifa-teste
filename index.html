@@ -56,21 +56,21 @@
             </section>
 
             <section id="rifas" class="featured-grid">
-                <div class="main-raffle">
+                <div class="main-raffle" id="main-raffle">
                     <div class="main-image">
-                        <img src="./images/banners/money.jpg" alt="Rifa em Destaque">
+                        <img id="main-raffle-image" src="./images/banners/money.jpg" alt="Rifa em Destaque">
                     </div>
                     <div class="info">
-                        <a href="./raffle.html">
+                        <a id="main-raffle-link" href="./raffle.html">
                             <div class="main-description">
                                 <div class="chip-row">
                                     <span class="chip chip-live">Mais procurada</span>
                                     <span class="chip chip-dark">Loteria Federal</span>
                                 </div>
-                                <h4>R$ 10.000,00 no PIX (10 mil reais no PIX)</h4>
-                                <p>Uma oportunidade de alto valor com sorteio direto e reserva simples.</p>
+                                <h4 id="main-raffle-title">R$ 10.000,00 no PIX (10 mil reais no PIX)</h4>
+                                <p id="main-raffle-description">Uma oportunidade de alto valor com sorteio direto e reserva simples.</p>
                                 <div class="meta-row">
-                                    <span class="meta-pill">A partir de R$ 0,19</span>
+                                    <span class="meta-pill" id="main-raffle-price">A partir de R$ 0,19</span>
                                     <span class="meta-pill">Reservas abertas</span>
                                 </div>
                             </div>
@@ -127,58 +127,8 @@
                     <p class="eyebrow">Outras oportunidades</p>
                     <h2>Rifas com diferentes valores e status</h2>
                 </div>
-                <div class="raffle-list">
-                    <div class="info sc">
-                        <a href="./raffle.html">
-                            <div class="group-info">
-                                <div class="raffle-image">
-                                    <img src="./images/banners/money.jpg" alt="Rifa">
-                                </div>
-                                <div class="main-description">
-                                    <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
-                                    <p>Sorteio Loteria Federal</p>
-                                    <div class="available">Adquira já!</div>
-                                </div>
-                            </div>
-                            <div class="go-to">
-                                <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="info sc">
-                        <a href="./raffle.html">
-                            <div class="group-info">
-                                <div class="raffle-image">
-                                    <img src="./images/banners/money.jpg" alt="Rifa">
-                                </div>
-                                <div class="main-description">
-                                    <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
-                                    <p>Sorteio Loteria Federal</p>
-                                    <div class="unavailable">Esgotou!</div>
-                                </div>
-                            </div>
-                            <div class="go-to">
-                                <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="info sc">
-                        <a href="./raffle.html">
-                            <div class="group-info">
-                                <div class="raffle-image">
-                                    <img src="./images/banners/money.jpg" alt="Rifa">
-                                </div>
-                                <div class="main-description">
-                                    <h4>R$ 3.000,00 no PIX (3 mil reais no PIX)</h4>
-                                    <p>Sorteio Loteria Federal</p>
-                                    <div class="unavailable">Esgotou!</div>
-                                </div>
-                            </div>
-                            <div class="go-to">
-                                <img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false">
-                            </div>
-                        </a>
-                    </div>
+                <div class="raffle-list" id="other-raffles-list">
+                    <!-- Preenchido dinamicamente pelo js/store.js -->
                 </div>
             </section>
 
@@ -191,5 +141,48 @@
             </section>
         </div>
     </main>
+
+    <script src="./js/store.js"></script>
+    <script>
+        (function () {
+            var raffles = Store.getRaffles();
+            var featured = Store.getFeaturedRaffle();
+            var others = raffles.filter(function (r) { return !featured || r.id !== featured.id; });
+
+            if (featured) {
+                document.getElementById('main-raffle-image').src = featured.image;
+                document.getElementById('main-raffle-title').textContent = featured.title;
+                document.getElementById('main-raffle-description').textContent = featured.description;
+                document.getElementById('main-raffle-price').textContent = 'A partir de ' + Store.formatBRL(featured.ticketValue);
+                document.getElementById('main-raffle-link').href = './raffle.html?id=' + featured.id;
+            }
+
+            var list = document.getElementById('other-raffles-list');
+            list.innerHTML = '';
+
+            if (others.length === 0) {
+                list.innerHTML = '<p class="empty-state">Nenhuma outra rifa cadastrada ainda. Crie uma pelo painel administrativo.</p>';
+                return;
+            }
+
+            others.forEach(function (raffle) {
+                var card = document.createElement('div');
+                card.className = 'info sc';
+                card.innerHTML =
+                    '<a href="./raffle.html?id=' + raffle.id + '">' +
+                        '<div class="group-info">' +
+                            '<div class="raffle-image"><img src="' + raffle.image + '" alt="Rifa"></div>' +
+                            '<div class="main-description">' +
+                                '<h4>' + raffle.title + '</h4>' +
+                                '<p>' + raffle.description + '</p>' +
+                                '<div class="available">Adquira já!</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="go-to"><img src="./images/icons/right-arrow-icon.png" alt="Acessar" draggable="false"></div>' +
+                    '</a>';
+                list.appendChild(card);
+            });
+        })();
+    </script>
 </body>
 </html>

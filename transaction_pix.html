@@ -35,7 +35,7 @@
                 </div>
                 <div class="pix-value">
                     <span>Valor do Pix:</span>
-                    <strong>R$ 405,95</strong>
+                    <strong id="pix-value">R$ 0,00</strong>
                 </div>
                 <div id="copy-mobile" class="pix-copy-mobile">
                     <img src="./images/icons/copy-icon.svg" alt="Copiar" draggable="false">
@@ -53,7 +53,17 @@
         </div>
     </main>
 
+    <script src="./js/store.js"></script>
     <script>
+        // Mostra o valor real da compra que a pessoa acabou de fazer.
+        // O QR Code e o código "copia e cola" abaixo AINDA são fixos/fictícios —
+        // isso só vai virar um Pix de verdade quando o backend com um provedor
+        // de pagamento (Mercado Pago, Asaas etc.) for implementado.
+        var order = Store.getLastOrder();
+        if (order) {
+            document.getElementById('pix-value').textContent = Store.formatBRL(order.total);
+        }
+
         // Copy qrcode
         document.getElementById('copy').addEventListener('click', copyText);
         document.getElementById('copy-mobile').addEventListener('touchstart', copyText);

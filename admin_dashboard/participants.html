@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 
 <head>
+  <script src="../js/admin-auth.js"></script>
+  <script>AdminAuth.requireLogin("login.html");</script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Participantes</title>
@@ -9,8 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/admin_dashboard/participants.css">
-<script src="../js/admin-auth.js"></script>
-<script>AdminAuth.requireLogin("login.html");</script>
+  <script src="../js/store.js"></script>
 </head>
 
 <body>
@@ -27,32 +28,11 @@
           <th>Ação</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td data-label="Nome">João da Silva</td>
-          <td data-label="Email">joao@email.com</td>
-          <td data-label="Rifa">Playstation 5</td>
-          <td data-label="Status"><span class="status paid">Pago</span></td>
-          <td data-label="Data">20/06/2024</td>
-          <td data-label="Ação">
-            <button class="view-btn"
-              onclick="openModal('João da Silva', 'joao@email.com', 'Playstation 5', ['025', '108', '237'])">Ver
-              números</button>
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Nome">Maria Oliveira</td>
-          <td data-label="Email">maria@email.com</td>
-          <td data-label="Rifa">iPhone 15</td>
-          <td data-label="Status"><span class="status pending">Pendente</span></td>
-          <td data-label="Data">21/06/2024</td>
-          <td data-label="Ação">
-            <button class="view-btn" onclick="openModal('Maria Oliveira', 'maria@email.com', 'iPhone 15', ['009'])">Ver
-              números</button>
-          </td>
-        </tr>
+      <tbody id="participants-table-body">
+        <!-- Preenchido dinamicamente a partir das reservas salvas -->
       </tbody>
     </table>
+    <p id="no-participants-message" style="display:none;">Nenhum participante ainda. As reservas feitas na página da rifa vão aparecer aqui.</p>
   </div>
 
   <!-- Modal -->
@@ -87,6 +67,31 @@
 
     function closeModal() {
       document.getElementById('participantModal').style.display = 'none';
+    }
+
+    // Preenche a tabela com as reservas reais feitas no site
+    var orders = Store.getOrders();
+    var tbody = document.getElementById('participants-table-body');
+
+    if (orders.length === 0) {
+      document.getElementById('no-participants-message').style.display = 'block';
+    } else {
+      orders.forEach(function (order) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td data-label="Nome">' + order.fullName + '</td>' +
+          '<td data-label="Email">' + order.email + '</td>' +
+          '<td data-label="Rifa">' + order.raffleTitle + '</td>' +
+          '<td data-label="Status"><span class="status pending">Aguardando pagamento</span></td>' +
+          '<td data-label="Data">' + Store.formatDate(order.createdAt) + '</td>' +
+          '<td data-label="Ação"><button class="view-btn">Ver números</button></td>';
+
+        tr.querySelector('.view-btn').addEventListener('click', function () {
+          openModal(order.fullName, order.email, order.raffleTitle, order.ticketNumbers);
+        });
+
+        tbody.appendChild(tr);
+      });
     }
   </script>
 </body>

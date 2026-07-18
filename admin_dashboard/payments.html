@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 
 <head>
+  <script src="../js/admin-auth.js"></script>
+  <script>AdminAuth.requireLogin("login.html");</script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pagamentos</title>
@@ -9,8 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/admin_dashboard/payments.css">
-<script src="../js/admin-auth.js"></script>
-<script>AdminAuth.requireLogin("login.html");</script>
+  <script src="../js/store.js"></script>
 </head>
 
 <body>
@@ -33,9 +34,6 @@
       </select>
       <select id="raffleFilter">
         <option value="">Todas as Rifas</option>
-        <option value="Playstation 5">Playstation 5</option>
-        <option value="iPhone 15">iPhone 15</option>
-        <option value="Nintendo Switch">Nintendo Switch</option>
       </select>
       <button class="export-btn" id="exportBtn">Exportar CSV</button>
     </div>
@@ -99,35 +97,40 @@
       setupEventListeners();
     });
 
-    // Fetch payments from backend
+    // Carrega os pedidos reais feitos no site (ainda não é um backend de verdade,
+    // são os dados salvos no navegador em js/store.js)
     function fetchPayments() {
-      // Em um aplicativo real, isso seria um fetch() para sua API
-      const mockPayments = [
-        {
-          id: 1,
-          participant: 'João da Silva',
-          email: 'joao@email.com',
-          raffle: 'Playstation 5',
-          amount: 'R$ 30,00',
-          paymentMethod: 'Pix',
-          status: 'approved',
-          date: '20/06/2024'
-        },
-        {
-          id: 2,
-          participant: 'Maria Souza',
-          email: 'maria@email.com',
-          raffle: 'iPhone 15',
-          amount: 'R$ 50,00',
-          paymentMethod: 'Card',
-          status: 'pending',
-          date: '21/06/2024'
-        }
-      ];
+      const orders = Store.getOrders();
 
-      allPayments = mockPayments;
+      allPayments = orders.map(function (order) {
+        return {
+          id: order.id,
+          participant: order.fullName,
+          email: order.email,
+          raffle: order.raffleTitle,
+          amount: Store.formatBRL(order.total),
+          paymentMethod: 'Pix',
+          status: 'pending',
+          date: Store.formatDate(order.createdAt)
+        };
+      });
       filteredPayments = [...allPayments];
+
+      populateRaffleFilter(orders);
       renderPayments();
+    }
+
+    // Preenche o filtro "Todas as Rifas" com os títulos reais das rifas
+    function populateRaffleFilter(orders) {
+      var raffleTitles = [...new Set(orders.map(function (o) { return o.raffleTitle; }))];
+      var select = elements.raffleFilter;
+      select.innerHTML = '<option value="">Todas as Rifas</option>';
+      raffleTitles.forEach(function (title) {
+        var option = document.createElement('option');
+        option.value = title;
+        option.textContent = title;
+        select.appendChild(option);
+      });
     }
 
     // Render payments to table

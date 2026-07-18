@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../css/admin_dashboard/dashboard-admin.css">
 <script src="../js/admin-auth.js"></script>
 <script>AdminAuth.requireLogin("login.html");</script>
+<script src="../js/store.js"></script>
 </head>
 
 <body>
@@ -28,68 +29,105 @@
   </div>
 
   <div class="main">
-    <h1>Admin - Painel de Controle</h1>
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">Painel administrativo</p>
+        <h1>Controle sua operação com mais clareza e impacto</h1>
+        <p>Acompanhe campanhas, pagamentos e desempenho em um painel visualmente forte e profissional.</p>
+      </div>
+      <div class="hero-actions">
+        <a href="./create-raffle.html" class="primary-btn">Criar nova rifa</a>
+        <a href="./list-raffles.html" class="ghost-btn">Ver rifas</a>
+      </div>
+    </section>
+
     <div class="cards">
-      <div class="card">
+      <div class="card accent-blue">
+        <div class="card-icon">📈</div>
         <h3>Rifas Criadas</h3>
-        <p>25</p>
+        <p id="stat-raffles">0</p>
+        <span>total cadastrado</span>
       </div>
-      <div class="card">
-        <h3>Total Arrecadado</h3>
-        <p>R$ 18.320,00</p>
+      <div class="card accent-green">
+        <div class="card-icon">💸</div>
+        <h3>Total em Reservas</h3>
+        <p id="stat-revenue">R$ 0,00</p>
+        <span>somando todas as reservas</span>
       </div>
-      <div class="card">
+      <div class="card accent-purple">
+        <div class="card-icon">👥</div>
         <h3>Participantes</h3>
-        <p>320</p>
+        <p id="stat-participants">0</p>
+        <span>reservas feitas no site</span>
       </div>
-      <div class="card">
+      <div class="card accent-gold">
+        <div class="card-icon">🎁</div>
         <h3>Prêmios Enviados</h3>
-        <p>22</p>
+        <p>0</p>
+        <span>sorteio ainda não implementado</span>
       </div>
     </div>
 
-    <div class="section">
-      <h3>Rifas Recentes</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Título</th>
-              <th>Preço</th>
-              <th>Ingressos</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>iPhone 14 Pro</td>
-              <td>R$ 10,00</td>
-              <td>500</td>
-              <td>Ativa</td>
-              <td><button class="btn">Editar</button></td>
-            </tr>
-            <tr>
-              <td>PlayStation 5</td>
-              <td>R$ 8,00</td>
-              <td>400</td>
-              <td>Finalizada</td>
-              <td><button class="btn">Ver</button></td>
-            </tr>
-            <tr>
-              <td>TV 65" 4K</td>
-              <td>R$ 7,00</td>
-              <td>600</td>
-              <td>Ativa</td>
-              <td><button class="btn">Editar</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="content-grid">
+      <section class="section">
+        <div class="section-title">
+          <h3>Rifas Recentes</h3>
+          <a href="./list-raffles.html">Ver tudo</a>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Preço</th>
+                <th>Ingressos</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="recent-raffles-body">
+            <!-- Preenchido dinamicamente -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">
+          <h3>Atividade Recente</h3>
+          <a href="./payments.html">Ver pagamentos</a>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="dot green"></div>
+            <div>
+              <strong>Lucas Lima</strong>
+              <p>Pagamento confirmado para iPhone 14 Pro</p>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="dot blue"></div>
+            <div>
+              <strong>Fernanda Alves</strong>
+              <p>Novo participante cadastrado na campanha da TV</p>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="dot gold"></div>
+            <div>
+              <strong>Rifa PlayStation 5</strong>
+              <p>Finalizada e pronta para sorteio</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <div class="section">
-      <h3>Pagamentos Recentes</h3>
+    <section class="section">
+      <div class="section-title">
+        <h3>Pagamentos Recentes</h3>
+        <a href="./payments.html">Abrir painel</a>
+      </div>
       <div class="table-wrapper">
         <table>
           <thead>
@@ -101,26 +139,55 @@
               <th>Data</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Lucas Lima</td>
-              <td>iPhone 14 Pro</td>
-              <td>R$ 20,00</td>
-              <td>Pago</td>
-              <td>21/06/2024</td>
-            </tr>
-            <tr>
-              <td>Fernanda Alves</td>
-              <td>TV 65" 4K</td>
-              <td>R$ 14,00</td>
-              <td>Pendente</td>
-              <td>20/06/2024</td>
-            </tr>
+          <tbody id="recent-payments-body">
+            <!-- Preenchido dinamicamente -->
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   </div>
+
+  <script>
+    var raffles = Store.getRaffles();
+    var orders = Store.getOrders();
+
+    document.getElementById('stat-raffles').textContent = raffles.length;
+    document.getElementById('stat-participants').textContent = orders.length;
+    var totalRevenue = orders.reduce(function (sum, o) { return sum + o.total; }, 0);
+    document.getElementById('stat-revenue').textContent = Store.formatBRL(totalRevenue);
+
+    var raffleRows = document.getElementById('recent-raffles-body');
+    if (raffles.length === 0) {
+      raffleRows.innerHTML = '<tr><td colspan="5">Nenhuma rifa cadastrada ainda.</td></tr>';
+    } else {
+      raffles.slice(-5).reverse().forEach(function (raffle) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + raffle.title + '</td>' +
+          '<td>' + Store.formatBRL(raffle.ticketValue) + '</td>' +
+          '<td>' + raffle.totalTickets + '</td>' +
+          '<td><span class="status active">Ativa</span></td>' +
+          '<td><a class="btn" href="./list-raffles.html">Ver</a></td>';
+        raffleRows.appendChild(tr);
+      });
+    }
+
+    var paymentRows = document.getElementById('recent-payments-body');
+    if (orders.length === 0) {
+      paymentRows.innerHTML = '<tr><td colspan="5">Nenhuma reserva feita ainda.</td></tr>';
+    } else {
+      orders.slice(-5).reverse().forEach(function (order) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + order.fullName + '</td>' +
+          '<td>' + order.raffleTitle + '</td>' +
+          '<td>' + Store.formatBRL(order.total) + '</td>' +
+          '<td><span class="status pending">Aguardando pagamento</span></td>' +
+          '<td>' + Store.formatDate(order.createdAt) + '</td>';
+        paymentRows.appendChild(tr);
+      });
+    }
+  </script>
 </body>
 
 </html>

@@ -9,10 +9,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="./js/store.js"></script>
 </head>
 <script>
-    // Valor do ticket
-    ticketValue = 0.19;
+    // Carrega a rifa pelo ?id= da URL (ou a rifa em destaque, se nenhum id for passado)
+    var urlParams = new URLSearchParams(window.location.search);
+    var raffleId = urlParams.get('id');
+    var currentRaffle = raffleId ? Store.getRaffleById(raffleId) : Store.getFeaturedRaffle();
+    if (!currentRaffle) {
+        currentRaffle = Store.getFeaturedRaffle();
+    }
+    // Valor do ticket (usado por js/add-raffle.js)
+    var ticketValue = currentRaffle.ticketValue;
 </script>
 <body>
     <div id="overlay-blur-effect"></div>
@@ -49,11 +57,32 @@
                 </a>
             </div>
             <div class="raffle">
-                <div class="main-image">
-                    <img src="./images/banners/money.jpg" alt="Rifa em Destaque">
-                    <div class="main-statement">por <b>R$ 0,19</b> cada número</div>
+                <div class="hero-card">
+                    <div class="main-image">
+                        <img id="raffle-main-image" src="./images/banners/money.jpg" alt="Rifa em Destaque">
+                        <div class="main-statement">por <b id="raffle-price-per-number">R$ 0,19</b> cada número</div>
+                    </div>
+                    <div class="hero-info">
+                        <span class="hero-badge">Sorteio em destaque</span>
+                        <h2 id="raffle-title">R$&nbsp10.000,00 no PIX (10 mil no PIX)</h2>
+                        <p id="raffle-description">Participe de uma oportunidade simples, rápida e com prêmio atrativo para o vencedor.</p>
+                        <div class="hero-highlights">
+                            <div class="hero-highlight-card">
+                                <strong id="raffle-price-highlight">R$ 0,19</strong>
+                                <span>por número</span>
+                            </div>
+                            <div class="hero-highlight-card">
+                                <strong>100%</strong>
+                                <span>transparência</span>
+                            </div>
+                            <div class="hero-highlight-card">
+                                <strong>PIX</strong>
+                                <span>pagamento rápido</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h2>R$&nbsp10.000,00 no PIX (10 mil no PIX)</h2>
+
                 <div class="raffle-organizer">
                     <div class="organizer-image">
                         <img src="./images/person.jpeg" alt="Organizador da Rifa">
@@ -84,8 +113,20 @@
                     </div>
                 </div>
                 <div class="awards">
-                    
+                    <div class="award-card">
+                        <h4>Prêmio principal</h4>
+                        <p>R$ 10.000,00 no PIX</p>
+                    </div>
+                    <div class="award-card">
+                        <h4>Segundo prêmio</h4>
+                        <p>R$ 3.000,00 no PIX</p>
+                    </div>
+                    <div class="award-card">
+                        <h4>Terceiro prêmio</h4>
+                        <p>R$ 1.000,00 no PIX</p>
+                    </div>
                 </div>
+
                 <div class="raffle-description">
                     <h4>Descrição / Regulamento</h4>
                     <p>O vencedor será definido no primeiro prêmio da loteria federal!</p>
@@ -159,7 +200,8 @@
                                                     <input name="terms" type="checkbox" required>
                                                     <p>Li e concordo com os <a href="#" target="_blank">Termos e Condições</a> e estou ciente de que essa reserva me vincula apenas à esta campanha criada pelo(a) organizador(a) e NÃO à plataforma.</p>
                                                 </div>
-                                                <a class="purchase-submit-btn" href="./review.html">Reservar</a>
+                                                <p id="purchase-error" class="quantity-error" style="display:none; color:#ff4d4f;">Preencha nome, e-mail, telefone e aceite os termos.</p>
+                                                <a id="purchase-submit-btn" class="purchase-submit-btn" href="#">Reservar</a>
                                             </div>
                                         </div>
                                     </form>
@@ -175,14 +217,24 @@
                         <div class="raffle-text">
                             <img src="./images/icons/pix-icon.svg" alt="Loterias Caixa" draggable="false">
                         </div>
+                        <p>Receba o prêmio diretamente por PIX, de forma rápida e segura.</p>
                     </div>
                     <div class="raffle-origin">
                         <h4>Sorteio</h4>
                         <div class="raffle-text">
                             <img src="./images/icons/loterias-caixa-logo.png" alt="Loterias Caixa" draggable="false">
                         </div>
+                        <p>O sorteio é realizado com base na Loteria Federal, conforme regulamento.</p>
                     </div>
                 </div>
+
+                <section class="cta-card">
+                    <div>
+                        <p class="eyebrow">Pronto para participar?</p>
+                        <h3>Garanta seu número e faça parte desta campanha com segurança e praticidade.</h3>
+                    </div>
+                    <a class="primary-btn" href="#">Reservar agora</a>
+                </section>
             </div>
         </div>
     </main>
@@ -196,5 +248,45 @@
     <script src="./js/search-tickets.js"></script>
     <script src="./js/add-raffle.js"></script>
     <script src="./js/purchase-tickets.js"></script>
+    <script>
+        // Preenche a página com os dados da rifa carregada (currentRaffle)
+        document.getElementById('raffle-main-image').src = currentRaffle.image;
+        document.getElementById('raffle-price-per-number').textContent = Store.formatBRL(currentRaffle.ticketValue);
+        document.getElementById('raffle-title').textContent = currentRaffle.title;
+        document.getElementById('raffle-description').textContent = currentRaffle.description;
+        document.getElementById('raffle-price-highlight').textContent = Store.formatBRL(currentRaffle.ticketValue);
+
+        // Ao clicar em "Reservar" dentro do formulário: valida, salva a reserva e vai para o review
+        document.getElementById('purchase-submit-btn').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            var fullName = document.getElementById('full-name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone-number').value.trim();
+            var termsChecked = document.querySelector('input[name="terms"]').checked;
+            var quantity = parseInt(document.getElementById('quantityValue').value, 10);
+            var errorMsg = document.getElementById('purchase-error');
+
+            if (!fullName || !email || !phone || !termsChecked || isNaN(quantity) || quantity <= 0) {
+                errorMsg.style.display = 'block';
+                return;
+            }
+            errorMsg.style.display = 'none';
+
+            var total = currentRaffle.ticketValue * quantity;
+
+            Store.saveOrder({
+                raffleId: currentRaffle.id,
+                raffleTitle: currentRaffle.title,
+                fullName: fullName,
+                email: email,
+                phone: phone,
+                quantity: quantity,
+                total: total
+            });
+
+            window.location.href = './review.html';
+        });
+    </script>
 </body>
 </html>

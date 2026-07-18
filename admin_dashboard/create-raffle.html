@@ -11,84 +11,137 @@
   <link rel="stylesheet" href="../css/admin_dashboard/create-raffle.css">
 <script src="../js/admin-auth.js"></script>
 <script>AdminAuth.requireLogin("login.html");</script>
+<script src="../js/store.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Criar Nova Rifa</h1>
-    <form>
-      <div class="form-group">
-        <label for="raffle-name">Nome da Rifa</label>
-        <input type="text" id="raffle-name" name="raffle_name" required>
+  <div class="page-shell">
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">Criar campanha</p>
+        <h1>Monte uma rifa com visual forte e pronta para vender</h1>
+        <p>Organize os dados principais, mídia, pagamento e contato em uma experiência bem mais elegante.</p>
       </div>
-
-      <div class="form-group">
-        <label for="raffle-description">Descrição</label>
-        <textarea id="raffle-description" name="raffle_description" required></textarea>
+      <div class="hero-badges">
+        <span>📸 Foto do produto</span>
+        <span>💳 Várias formas de pagamento</span>
+        <span>⚡ Fluxo profissional</span>
       </div>
+    </section>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="raffle-image">Imagem da Rifa</label>
-          <input type="file" id="raffle-image" name="raffle_image" accept="image/*"
-            onchange="previewImage(this, 'raffle-image-preview')">
-          <img id="raffle-image-preview" class="preview-img" style="display:none;">
+    <div class="content-grid">
+      <section class="panel-main">
+        <div class="panel-heading">
+          <h2>Dados da campanha</h2>
+          <p>Preencha os campos abaixo para publicar uma rifa com identidade premium.</p>
         </div>
 
-        <div class="form-group">
-          <label for="ticket-quantity">Quantidade de Números</label>
-          <input type="number" id="ticket-quantity" name="ticket_quantity" min="1" required>
+        <form>
+          <div class="form-group">
+            <label for="raffle-name">Nome da Rifa</label>
+            <input type="text" id="raffle-name" name="raffle_name" placeholder="Ex: iPhone 15 Pro Max" required>
+          </div>
+
+          <div class="form-group">
+            <label for="raffle-description">Descrição</label>
+            <textarea id="raffle-description" name="raffle_description" placeholder="Conte o que torna essa rifa atrativa" required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="raffle-image">Imagem da Rifa</label>
+              <label class="upload-card" for="raffle-image">
+                <span class="upload-icon">📷</span>
+                <span class="upload-text">Escolher arquivo</span>
+              </label>
+              <input type="file" id="raffle-image" name="raffle_image" accept="image/*"
+                onchange="previewImage(this, 'raffle-image-preview')">
+              <img id="raffle-image-preview" class="preview-img" style="display:none;">
+            </div>
+
+            <div class="form-group">
+              <label for="ticket-quantity">Quantidade de Números</label>
+              <input type="number" id="ticket-quantity" name="ticket_quantity" min="1" required>
+            </div>
+
+            <div class="form-group">
+              <label for="ticket-price">Valor por Número (R$)</label>
+              <input type="number" id="ticket-price" name="ticket_price" step="0.01" required>
+            </div>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="show-leaderboard" name="show_leaderboard" checked>
+              Exibir classificação dos colaboradores
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label>Métodos de Pagamento</label>
+            <div class="payment-options">
+              <label><input type="checkbox" name="payment_pix" checked> Pix</label>
+              <label><input type="checkbox" name="payment_card"> Cartão de Crédito</label>
+              <label><input type="checkbox" name="payment_boleto"> Boleto</label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="organizer-name">Nome do Organizador</label>
+              <input type="text" id="organizer-name" name="organizer_name" placeholder="Nome do responsável" required>
+            </div>
+
+            <div class="form-group">
+              <label for="organizer-photo">Foto do Organizador</label>
+              <label class="upload-card" for="organizer-photo">
+                <span class="upload-icon">🖼️</span>
+                <span class="upload-text">Escolher arquivo</span>
+              </label>
+              <input type="file" id="organizer-photo" name="organizer_photo" accept="image/*"
+                onchange="previewImage(this, 'organizer-photo-preview')">
+              <img id="organizer-photo-preview" class="preview-img" style="display:none;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Links de Contato (opcional)</label>
+            <div class="social">
+              <input type="url" name="whatsapp_link" placeholder="Link do WhatsApp">
+              <input type="url" name="telegram_link" placeholder="Link do Telegram">
+              <input type="url" name="instagram_link" placeholder="Link do Instagram">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit">Criar Rifa</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="panel-side">
+        <div class="preview-card">
+          <div class="preview-top">
+            <span class="badge">Pré-visualização</span>
+            <span class="badge alt">Ao vivo</span>
+          </div>
+          <div class="preview-cover"></div>
+          <div class="preview-body">
+            <h3>Campanha em destaque</h3>
+            <p>Seu produto aparecerá aqui com um visual elegante e preparado para atrair participantes.</p>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="ticket-price">Valor por Número (R$)</label>
-          <input type="number" id="ticket-price" name="ticket_price" step="0.01" required>
+        <div class="tips-card">
+          <h3>Dicas rápidas</h3>
+          <ul>
+            <li>Use uma imagem de boa qualidade do produto.</li>
+            <li>Defina um preço claro por número.</li>
+            <li>Mantenha a descrição objetiva e persuasiva.</li>
+          </ul>
         </div>
-      </div>
-
-      <div class="form-group checkbox-group">
-        <label>
-          <input type="checkbox" id="show-leaderboard" name="show_leaderboard" checked>
-          Exibir classificação dos colaboradores
-        </label>
-      </div>
-
-      <div class="form-group">
-        <label>Métodos de Pagamento</label>
-        <div class="payment-options">
-          <label><input type="checkbox" name="payment_pix" checked> Pix</label>
-          <label><input type="checkbox" name="payment_card"> Cartão de Crédito</label>
-          <label><input type="checkbox" name="payment_boleto"> Boleto</label>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="organizer-name">Nome do Organizador</label>
-          <input type="text" id="organizer-name" name="organizer_name" required>
-        </div>
-
-        <div class="form-group">
-          <label for="organizer-photo">Foto do Organizador</label>
-          <input type="file" id="organizer-photo" name="organizer_photo" accept="image/*"
-            onchange="previewImage(this, 'organizer-photo-preview')">
-          <img id="organizer-photo-preview" class="preview-img" style="display:none;">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Links de Contato (opcional)</label>
-        <div class="social">
-          <input type="url" name="whatsapp_link" placeholder="Link do WhatsApp">
-          <input type="url" name="telegram_link" placeholder="Link do Telegram">
-          <input type="url" name="instagram_link" placeholder="Link do Instagram">
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit">Criar Rifa</button>
-      </div>
-    </form>
+      </aside>
+    </div>
   </div>
 
   <script>
@@ -104,6 +157,38 @@
         reader.readAsDataURL(file);
       }
     }
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var title = document.getElementById('raffle-name').value.trim();
+      var description = document.getElementById('raffle-description').value.trim();
+      var qty = parseInt(document.getElementById('ticket-quantity').value, 10);
+      var price = parseFloat(document.getElementById('ticket-price').value);
+
+      if (!title || !description || isNaN(qty) || qty <= 0 || isNaN(price) || price <= 0) {
+        alert('Preencha nome, descrição, quantidade de números e valor por número corretamente.');
+        return;
+      }
+
+      var imagePreview = document.getElementById('raffle-image-preview');
+      var image = (imagePreview.src && imagePreview.style.display !== 'none') ? imagePreview.src : './images/banners/money.jpg';
+
+      Store.saveRaffle({
+        title: title,
+        description: description,
+        image: image,
+        ticketValue: price,
+        totalTickets: qty,
+        ranking: document.getElementById('show-leaderboard').checked,
+        organizerName: document.getElementById('organizer-name').value.trim(),
+        support: document.querySelector('[name="whatsapp_link"]').value.trim(),
+        telegram: document.querySelector('[name="telegram_link"]').value.trim(),
+        instagram: document.querySelector('[name="instagram_link"]').value.trim()
+      });
+
+      window.location.href = './list-raffles.html';
+    });
   </script>
 </body>
 </html>

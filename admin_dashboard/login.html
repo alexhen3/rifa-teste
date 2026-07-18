@@ -9,40 +9,73 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/admin_dashboard/login.css">
+
 </head>
 
 <body>
+  <div class="page-background" aria-hidden="true">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="orb orb-three"></div>
+  </div>
+
   <div class="login-container">
-    <h2>Login Administrativo</h2>
-    <form>
-      <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="admin@savawards.com" required />
+    <div class="brand-panel">
+      <div class="brand-badge">SA</div>
+      <p class="eyebrow">Painel administrativo</p>
+      <h1>Gerencie rifas com mais controle e sofisticação</h1>
+      <p class="brand-copy">Acompanhe vendas, pagamentos e participantes em uma área de gestão visualmente premium.</p>
+
+      <div class="highlights">
+        <div class="highlight-item">Segurança reforçada</div>
+        <div class="highlight-item">Fluxo mais rápido</div>
+        <div class="highlight-item">Painel intuitivo</div>
       </div>
-      <div class="form-group">
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" placeholder="********" required />
+    </div>
+
+    <div class="form-panel">
+      <div class="top-pill">Acesso restrito</div>
+      <h2>Entrar no painel</h2>
+      <p class="panel-copy">Use suas credenciais para acessar o centro de gestão.</p>
+
+      <form>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="admin@savawards.com" required />
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" placeholder="********" required />
+        </div>
+
+        <label class="remember">
+          <input type="checkbox" />
+          <span>Lembrar sessão</span>
+        </label>
+
+        <button type="submit" class="login-btn">Entrar</button>
+        <p id="login-error">Senha incorreta.</p>
+      </form>
+
+      <div class="footer">
+        <span>&copy; 2025 Savawards</span>
+        <a href="#">Precisa de ajuda?</a>
       </div>
-      <button type="submit" class="login-btn">Entrar</button>
-      <p id="login-error" style="color:#ff4d4f; display:none; margin-top:10px; text-align:center;">Senha incorreta.</p>
-    </form>
-    <div class="footer">
-      &copy; 2025 Savawards. Todos os direitos reservados.
     </div>
   </div>
 
   <script src="../js/admin-auth.js"></script>
-<script>
-  document.querySelector('.login-container form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var email = document.getElementById('email').value;
-    var senha = document.getElementById('senha').value;
-    var ok = AdminAuth.attemptLogin(email, senha, 'dashboard-admin.html');
-    if (!ok) {
-      document.getElementById('login-error').style.display = 'block';
-    }
-  });
-</script>
+  <script>
+    document.querySelector('.login-container form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('email').value;
+      var senha = document.getElementById('senha').value;
+      var ok = AdminAuth.attemptLogin(email, senha, 'dashboard-admin.html');
+      if (!ok) {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    });
+  </script>
 </body>
-  
+
 </html>

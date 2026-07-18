@@ -11,52 +11,84 @@
   <link rel="stylesheet" href="../css/admin_dashboard/list-raffles.css">
 <script src="../js/admin-auth.js"></script>
 <script>AdminAuth.requireLogin("login.html");</script>
+<script src="../js/store.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <div class="top-bar">
-      <h1>Rifas Cadastradas</h1>
-      <a href="/admin/rifas/nova" class="btn">+ Nova Rifa</a>
+  <div class="page-shell">
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">Gestão de rifas</p>
+        <h1>Organize suas campanhas com mais clareza e impacto</h1>
+        <p>Acompanhe status, valores e desempenho de cada rifa em uma visão mais moderna.</p>
+      </div>
+      <a href="./create-raffle.html" class="btn primary">+ Nova Rifa</a>
+    </section>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Ativas</h3>
+        <p id="stat-active">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Encerradas</h3>
+        <p>0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Vendas</h3>
+        <p id="stat-sales">0</p>
+      </div>
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Título</th>
-          <th>Status</th>
-          <th>Preço</th>
-          <th>Qtd. Números</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>001</td>
-          <td>Rifa do iPhone 14</td>
-          <td><span class="status ativa">Ativa</span></td>
-          <td>R$ 10,00</td>
-          <td>1000</td>
-          <td class="actions">
-            <a href="/admin/rifas/1/editar" class="btn">Editar</a>
-            <a href="/admin/rifas/1" class="btn">Ver</a>
-          </td>
-        </tr>
-        <tr>
-          <td>002</td>
-          <td>Rifa da Smart TV</td>
-          <td><span class="status encerrada">Encerrada</span></td>
-          <td>R$ 5,00</td>
-          <td>500</td>
-          <td class="actions">
-            <a href="/admin/rifas/2/editar" class="btn">Editar</a>
-            <a href="/admin/rifas/2" class="btn">Ver</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="container">
+      <div class="top-bar">
+        <div>
+          <h2>Rifas cadastradas</h2>
+          <p>Lista completa das campanhas disponíveis no painel.</p>
+        </div>
+        <a href="./create-raffle.html" class="btn">+ Nova Rifa</a>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título</th>
+              <th>Status</th>
+              <th>Preço</th>
+              <th>Qtd. Números</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="raffles-table-body">
+            <!-- Preenchido dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
+
+  <script>
+    var raffles = Store.getRaffles();
+    var orders = Store.getOrders();
+
+    document.getElementById('stat-active').textContent = raffles.length;
+    document.getElementById('stat-sales').textContent = orders.length;
+
+    var tbody = document.getElementById('raffles-table-body');
+    raffles.forEach(function (raffle) {
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + raffle.id + '</td>' +
+        '<td>' + raffle.title + '</td>' +
+        '<td><span class="status ativa">Ativa</span></td>' +
+        '<td>' + Store.formatBRL(raffle.ticketValue) + '</td>' +
+        '<td>' + raffle.totalTickets + '</td>' +
+        '<td class="actions"><a href="../raffle.html?id=' + raffle.id + '" class="btn action secondary" target="_blank">Ver</a></td>';
+      tbody.appendChild(tr);
+    });
+  </script>
 </body>
 
 </html>

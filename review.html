@@ -26,70 +26,62 @@
     <!-- Content -->
     <main>
         <div class="main-container">
-            <div class="checkout-list">
+            <div class="checkout-list" id="checkout-list">
                 <div class="information-list">
                     <div class="info">
                         <span>Nome:</span>
-                        <b>Murilo de Oliveira Souza</b>
+                        <b id="review-name"></b>
                     </div>
                     <div class="info">
                         <span>Email:</span>
-                        <b>murilode.o.souza@gmail.com</b>
+                        <b id="review-email"></b>
                     </div>
                     <div class="info">
                         <span>Telefone/WhatsApp:</span>
-                        <b>(00) 00000-0000</b>
+                        <b id="review-phone"></b>
                     </div>
                     <div class="info">
                         <span>Quantidade de bilhetes:</span>
-                        <b>32</b>
+                        <b id="review-quantity"></b>
                     </div>
                     <div id="see-tickets" class="see-tickets">
                         <span>ver bilhetes</span>
                     </div>
                     <div id="ticket-numbers" class="ticket-numbers">
-                        <p>4890</p>
-                        <p>4690</p>
-                        <p>40</p>
-                        <p>108</p>
-                        <p>489055</p>
-                        <p>4690</p>
-                        <p>40</p>
-                        <p>108</p>
-                        <p>4890</p>
-                        <p>46904</p>
-                        <p>40</p>
-                        <p>108</p>
-                        <p>4890</p>
-                        <p>4690</p>
-                        <p>40</p>
-                        <p>108</p>
-                        <p>4890</p>
-                        <p>4690</p>
-                        <p>40</p>
-                        <p>108</p>
-                        <p>4890</p>
-                        <p>4690</p>
-                        <p>40</p>
-                        <p>108</p>
-                        <p>4890</p>
-                        <p>4690</p>
-                        <p>40</p>
-                        <p>108</p>
-                        <p>4890</p>
-                        <p>4690</p>
-                        <p>40</p>
-                        <p>108</p>
+                        <!-- Preenchido dinamicamente -->
                     </div>
                 </div>
             </div>
-            <a href="./transaction_pix.html" class="purchase">
+            <p id="no-order-message" style="display:none;">Nenhuma reserva encontrada. <a href="./index.html">Voltar para a página inicial</a>.</p>
+            <a href="./transaction_pix.html" class="purchase" id="pay-pix-link">
                 <span>Pagar com o PIX</span>
             </a>
         </div>
     </main>
     <!-- Content -->
 
+    <script src="./js/store.js"></script>
+    <script>
+        var order = Store.getLastOrder();
+
+        if (!order) {
+            document.getElementById('checkout-list').style.display = 'none';
+            document.getElementById('pay-pix-link').style.display = 'none';
+            document.getElementById('no-order-message').style.display = 'block';
+        } else {
+            document.getElementById('review-name').textContent = order.fullName;
+            document.getElementById('review-email').textContent = order.email;
+            document.getElementById('review-phone').textContent = order.phone;
+            document.getElementById('review-quantity').textContent = order.quantity;
+
+            var ticketNumbersContainer = document.getElementById('ticket-numbers');
+            order.ticketNumbers.forEach(function (number) {
+                var p = document.createElement('p');
+                p.textContent = number;
+                ticketNumbersContainer.appendChild(p);
+            });
+        }
+    </script>
     <script src="./js/see-tickets.js"></script>
 </body>
 </html>
